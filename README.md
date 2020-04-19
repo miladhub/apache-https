@@ -31,7 +31,7 @@ Create the private key `server.key` and the self-signed SSL certificate `server.
     docker cp server.key apache:/usr/local/apache2/conf
     docker exec apache apachectl restart
 
-## References
+## References
 
 - <https://devcenter.heroku.com/articles/ssl-certificate-self>
 - <https://hub.docker.com/_/httpd>
