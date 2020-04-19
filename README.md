@@ -25,7 +25,7 @@ Create the private key `server.key` and the self-signed SSL certificate `server.
 
 ## Setting up Apache with HTTPS
 
-    docker run -dit --name apache -p 8080:80 -p 443:443 httpd:2.4
+    docker run -dit --name apache -p 443:443 httpd:2.4
     docker cp httpd.conf apache:/usr/local/apache2/conf
     docker cp httpd-ssl.conf apache:/usr/local/apache2/conf/extra
     docker cp server.crt apache:/usr/local/apache2/conf
