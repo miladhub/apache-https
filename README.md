@@ -1,4 +1,5 @@
-# Apache with HTTPS example
+Apache with HTTPS example
+===
 
 This repo represents a simple example of how to expose a service on Apache using HTTPS.
 
