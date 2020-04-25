@@ -1,16 +1,17 @@
 Apache with HTTPS example
 ===
 
-This repo represents a simple example of how to expose a service on Apache using HTTPS.
+This project represents a simple example of how to expose a service on Apache using HTTPS.
 
-These instructions were tested on MacOS. The relevant, app-specific information is contained in file `httpd-ssl.conf`:
+These instructions were tested on MacOS. The app behind the SP is just a demo server that dumps all HTTP headers on the console.
+The app-specific configuration is contained in fil `httpd-ssl.conf`:
 
-    <Location /helk>
+    <Location /app>
       ProxyPass "http://host.docker.internal:9176"
       ProxyPassReverse "http://host.docker.internal:9176"
     </Location>
 
-The app will be available at <https://localhost/helk>.
+You can replace it by pointing at your app.
 
 ## Creating the server private key and SSL certificate
 
@@ -32,9 +33,27 @@ Create the private key `server.key` and the self-signed SSL certificate `server.
     docker cp server.key apache:/usr/local/apache2/conf
     docker exec apache apachectl restart
 
+# Installing the dummy app
+
+    nc -l 9176
+    
+If you navigate to the app at <https://localhost/app> the page will stay there hanging, but on the console
+you can see all HTTP headers coming through in clear text (i.e., unencrypted), which means that the Apache HTTPS proxy is working:
+
+    GET / HTTP/1.1
+    Host: host.docker.internal:9176
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+    Accept-Language: en-gb
+    Accept-Encoding: gzip, deflate, br
+    User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Safari/605.1.15
+    X-Forwarded-For: 172.17.0.1
+    X-Forwarded-Host: localhost
+    X-Forwarded-Server: www.example.com
+    Connection: Keep-Alive
+
 ## References
 
-- <https://devcenter.heroku.com/articles/ssl-certificate-self>
-- <https://hub.docker.com/_/httpd>
-- <https://docs.docker.com/docker-for-mac/networking/> (`host.docker.internal`)
+* <https://devcenter.heroku.com/articles/ssl-certificate-self>
+* <https://hub.docker.com/_/httpd>
+* <https://docs.docker.com/docker-for-mac/networking/> (`host.docker.internal`)
 
