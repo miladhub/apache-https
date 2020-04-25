@@ -3,8 +3,7 @@ Apache with HTTPS example
 
 This project represents a simple example of how to expose a service on Apache using HTTPS.
 
-These instructions were tested on MacOS. The app behind the SP is just a demo server that dumps all HTTP headers on the console.
-The app-specific configuration is contained in fil `httpd-ssl.conf`:
+These instructions were tested on MacOS. The app behind Apache is just a demo server that dumps all HTTP headers on the console. The app-specific configuration is contained in fil `httpd-ssl.conf`:
 
     <Location /app>
       ProxyPass "http://host.docker.internal:9176"
