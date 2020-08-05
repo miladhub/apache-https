@@ -34,6 +34,12 @@ Create the private key `server.key` and the self-signed SSL certificate `server.
 
 # Installing the dummy app
 
+Issue the following command:
+
+    nc -l -p 9176
+
+Or this is you have the BSD version of Netcat:
+
     nc -l 9176
     
 If you navigate to the app at <https://localhost/app> the page will stay there hanging, but on the console
