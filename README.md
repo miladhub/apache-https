@@ -47,7 +47,7 @@ docker cp httpd.conf apache-https:/usr/local/apache2/conf
 docker cp httpd-ssl.conf apache-https:/usr/local/apache2/conf/extra
 docker cp localhost.pem apache-https:/usr/local/apache2/conf/server.crt
 docker cp localhost.key apache-https:/usr/local/apache2/conf/server.key
-docker exec apache-https apachectl restart
+docker restart apache-https
 ```
 
 # Installing the dummy app
@@ -81,8 +81,24 @@ X-Forwarded-Server: www.example.com
 Connection: Keep-Alive
 ```
 
+# Checking that HTTP/2 works
+
+```
+$ curl --http2 https://localhost/ -I
+HTTP/2 200 
+date: Tue, 05 Oct 2021 20:10:02 GMT
+server: Apache/2.4.49 (Unix) OpenSSL/1.1.1d
+last-modified: Mon, 11 Jun 2007 18:53:14 GMT
+etag: "2d-432a5e4a73a80"
+accept-ranges: bytes
+content-length: 45
+content-type: text/htm
+```
+
 ## References
 
 * <https://devcenter.heroku.com/articles/ssl-certificate-self>
 * <https://hub.docker.com/_/httpd>
 * <https://docs.docker.com/docker-for-mac/networking/> (`host.docker.internal`)
+* <https://httpd.apache.org/docs/2.4/howto/http2.html>
+* <https://www.inmotionhosting.com/support/server/apache/enable-http-2-apache/>
