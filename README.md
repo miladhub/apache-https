@@ -18,18 +18,7 @@ You can replace it by pointing at your app.
 
 ## Creating the server private key and SSL certificate
 
-Create the private key `server.key` and the self-signed SSL certificate `server.crt` as follows:
-
-```
-openssl genrsa -des3 -passout pass:x -out server.pass.key 2048
-openssl rsa -passin pass:x -in server.pass.key -out server.key
-openssl req -new -key server.key -out server.csr \
-  -subj "/C=IT/ST=Italy/L=Bologna/O=FooBar inc/OU=Nerds/CN=foo.bar.baz"
-openssl x509 -req -sha256 -days 365 -in server.csr -signkey server.key -out server.crt
-rm server.pass.key server.csr
-```
-
-Alternatively, to avoid self-signed certificate warnings, install [mkcert](https://github.com/FiloSottile/mkcert) and issue the following commands:
+Create the private key and the self-signed SSL certificate using [mkcert](https://github.com/FiloSottile/mkcert):
 
 ```
 mkcert --install
